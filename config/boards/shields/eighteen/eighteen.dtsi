@@ -14,8 +14,8 @@
 		label = "KSCAN";
 		input-gpios
 		
-		= <&pro_micro 0 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
-		, <&pro_micro 1 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+		= <&pro_micro 1 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+		, <&pro_micro 0 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
 		, <&pro_micro 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
 
 		, <&pro_micro 21 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
@@ -24,15 +24,15 @@
 
 		, <&pro_micro 3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
 		, <&pro_micro 4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
-		, <&pro_micro 9 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
-		, <&pro_micro 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+		, <&gpio1 1 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+		, <&gpio1 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
 
 		, <&pro_micro 5 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
 		, <&pro_micro 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
 		, <&pro_micro 7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
 		, <&pro_micro 8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
 
-		, <&pro_micro 16 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+		, <&gpio1 7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
 		, <&pro_micro 18 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
 
 		, <&pro_micro 14 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
@@ -41,4 +41,30 @@
 		;
 	};
 
+};
+// The PS/2 GPIO and mouse drivers.
+/ {
+    gpio_ps2: gpio_ps2 {
+		status = "okay";
+        compatible = "gpio-ps2";
+
+        // The two bottom left pins of the nice!nano (when it is facing down)
+	scl-gpios = <&pro_micro 16 0>;
+        sda-gpios = <&pro_micro 10 0>;
+    };
+};
+
+/ {
+    mouse_ps2: mouse_ps2 {
+		status = "okay";
+        compatible = "zmk,mouse-ps2";
+        ps2-device = <&gpio_ps2>;
+
+        // Uncomment this if you have an extra free pin and
+        // want the controller to perform the Power-On-Reset
+        // instead of using a reset circuit.
+        //
+        // The bottom right pin of the nice!nano (when it is facing down)
+        rst-gpios = <&pro_micro 9 0>;
+    };
 };
