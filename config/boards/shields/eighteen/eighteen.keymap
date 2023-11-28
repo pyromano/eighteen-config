@@ -220,7 +220,7 @@ ZMK_BEHAVIOR(ss_cw, tap_dance,
         alpha1 {
         label = "Base";
         bindings = <
-                          &hm_l LCTL C    &hm_l LGUI G    &hm_l LALT D              &hm_r LALT L    &hm_r RGUI U    &hm_r RCTL H
+                          &hm_l LCTL L    &hm_l LGUI G    &hm_l LALT D              &hm_r LALT H    &hm_r RGUI U    &hm_r RCTL C
             &hl_l NUM A   &hl_l SM2 R     &hl_l SM1 S     &hl_l SYS T               &hl_r SYS N     &hl_r SM1 E     &hl_r SM2 I   &hl_r NUM O
                                         &mt LC(LS(LALT)) SPC &ss_cw             &key_repeat &sl AL2  
         >;
