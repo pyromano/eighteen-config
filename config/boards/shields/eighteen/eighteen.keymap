@@ -117,7 +117,7 @@ ZMK_BEHAVIOR(ss_cw, tap_dance,
       };
       dot {
         timeout-ms = <50>;
-        key-positions = <10 12>;
+        key-positions = <10 11>;
         bindings = <&kp DOT>;
       };
       comma {
