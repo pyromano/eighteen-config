@@ -115,6 +115,56 @@ ZMK_BEHAVIOR(ss_cw, tap_dance,
         bindings = <&kp N9>;
         layers = <NUM>;
       };
+      dot {
+        timeout-ms = <50>;
+        key-positions = <10 12>;
+        bindings = <&kp DOT>;
+      };
+      comma {
+        timeout-ms = <50>;
+        key-positions = <3 4>;
+        bindings = <&kp COMMA>;
+      };
+      minus {
+        timeout-ms = <50>;
+        key-positions = <1 2>;
+        bindings = <&kp MINUS>;
+      };
+      equal {
+        timeout-ms = <50>;
+        key-positions = <8 9>;
+        bindings = <&kp EQUAL>;
+      };
+      lpar {
+        timeout-ms = <50>;
+        key-positions = <2 9>;
+        bindings = <&kp LPAR>;
+      };
+      rpar {
+        timeout-ms = <50>;
+        key-positions = <3 10>;
+        bindings = <&kp RPAR>;
+      };
+      lbrc {
+        timeout-ms = <50>;
+        key-positions = <1 8>;
+        bindings = <&kp LBRC>;
+      };
+      rbrc {
+        timeout-ms = <50>;
+        key-positions = <4 11>;
+        bindings = <&kp RBRC>;
+      };
+      lbkt {
+        timeout-ms = <50>;
+        key-positions = <0 7>;
+        bindings = <&kp LBKT>;
+      };
+      rbkt {
+        timeout-ms = <50>;
+        key-positions = <5 12>;
+        bindings = <&kp RBKT>;
+      };
     };
 
     behaviors {
