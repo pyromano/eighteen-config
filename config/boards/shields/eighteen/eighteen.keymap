@@ -165,6 +165,11 @@ ZMK_BEHAVIOR(ss_cw, tap_dance,
         key-positions = <5 12>;
         bindings = <&kp RBKT>;
       };
+      sqt {
+        timeout-ms = <50>;
+        key-positions = <6 13>;
+        bindings = <&kp SQT>;
+      };
     };
 
     behaviors {
