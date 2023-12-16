@@ -167,7 +167,7 @@ ZMK_BEHAVIOR(ss_cw, tap_dance,
       };
       sqt {
         timeout-ms = <50>;
-        key-positions = <6 13>;
+        key-positions = <12 13>;
         bindings = <&kp SQT>;
       };
     };
@@ -302,7 +302,7 @@ ZMK_BEHAVIOR(ss_cw, tap_dance,
         bindings = <
                         &trans      &kp LT	    &kp GT                      &kp LPAR   &kp RPAR    &kp LBRC	
             &kp SEMI    &kp PRCNT   &kp TILDE   &kp UNDER                   &kp LBKT	  &kp RBKT    &kp RBRC    &trans
-                                    &trans      &sr LSHIFT   AL1            &kp LALT &kp RGUI
+                                    &td LG(V) LG(C)      &sr LSHIFT   AL1            &kp LALT &kp RGUI
 
         >;
         };
