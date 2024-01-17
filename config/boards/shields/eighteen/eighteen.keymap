@@ -134,35 +134,36 @@ ZMK_BEHAVIOR(swapper, tri_state,
         key-positions = <8 9>;
         bindings = <&kp EQUAL>;
       };
-      lpar {
+      // vertical layer combos
+      ml {
         timeout-ms = <50>;
         key-positions = <2 9>;
-        bindings = <&kp LPAR>;
+        bindings = <&kp P>;
       };
-      rpar {
+      fl {
         timeout-ms = <50>;
         key-positions = <3 10>;
-        bindings = <&kp RPAR>;
+        bindings = <&kp M>;
       };
-      lbrc {
+      wl {
         timeout-ms = <50>;
         key-positions = <1 8>;
-        bindings = <&kp LBRC>;
+        bindings = <&kp F>;
       };
-      rbrc {
+      kl {
         timeout-ms = <50>;
         key-positions = <4 11>;
-        bindings = <&kp RBRC>;
+        bindings = <&kp K>;
       };
-      lbkt {
+      vl {
         timeout-ms = <50>;
         key-positions = <0 7>;
-        bindings = <&kp LBKT>;
+        bindings = <&kp W>;
       };
-      rbkt {
+      pl {
         timeout-ms = <50>;
         key-positions = <5 12>;
-        bindings = <&kp RBKT>;
+        bindings = <&kp V>;
       };
       sqt {
         timeout-ms = <50>;
@@ -274,7 +275,7 @@ ZMK_BEHAVIOR(swapper, tri_state,
         alpha1 {
         label = "Base";
         bindings = <
-                          &hm_l LCTL L    &hm_l LGUI G    &hm_l LALT D              &hm_r LALT H    &hm_r RGUI U    &hm_r RCTL C
+                          &hm_l LCTL G    &hm_l LGUI C    &hm_l LALT D              &hm_r LALT L    &hm_r RGUI U    &hm_r RCTL H
             &hl_l NUM A   &hl_l SM2 R     &hl_l SM1 S     &hl_l SYS T               &hl_r SYS N     &hl_r SM1 E     &hl_r SM2 I   &hl_r NUM O
                                         &mt LC(LS(LALT)) SPC &ss_cw             &key_repeat &sl AL2  
         >;
