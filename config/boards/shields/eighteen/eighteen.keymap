@@ -96,28 +96,22 @@ ZMK_BEHAVIOR(swapper, tri_state,
         bindings = <&kp ESC>;
         layers = <AL1 AL2 AL2U>;
       };
-      number_8 {
+      number_4 {
         timeout-ms = <200>;
-        key-positions = <4 5>;
-        bindings = <&kp N8>;
+        key-positions = <3 10>;
+        bindings = <&kp N4>;
         layers = <NUM>;
       };
-      number_0 {
+      number_5 {
         timeout-ms = <200>;
-        key-positions = <11 12>;
-        bindings = <&kp N0>;
+        key-positions = <4 11>;
+        bindings = <&kp N5>;
         layers = <NUM>;
       };
-      number_7 {
+      number_6 {
         timeout-ms = <200>;
-        key-positions = <3 4>;
-        bindings = <&kp N7>;
-        layers = <NUM>;
-      };
-      number_9 {
-        timeout-ms = <200>;
-        key-positions = <10 11>;
-        bindings = <&kp N9>;
+        key-positions = <5 12>;
+        bindings = <&kp N6>;
         layers = <NUM>;
       };
       dot {
@@ -316,7 +310,7 @@ ZMK_BEHAVIOR(swapper, tri_state,
         label = "Num";
         bindings = <
                         &hm_l LCTL DOT    &hm_l LALT COMMA  &hm_l LGUI SEMI  &hm_r RGUI N1   &hm_r RALT N2   &hm_r RCTL N3
-            &kp SLASH   &kp MINUS		      &kp PLUS          &kp COLON        &kp N4			&kp N5			&kp N6		&kp EQUAL
+            &kp SLASH   &kp MINUS		      &kp PLUS          &kp COLON        &kp N7			&kp N8			&kp N9		&kp N0
                                           &kp RCTL &sr LSHIFT AL1            &kp LALT  &kp RGUI        
         >;
         };
