@@ -61,20 +61,91 @@ MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS)  // right-hand HRMs
 MAKE_HRL(hll, &mo, &kp, KEYS_R THUMBS)  // left-hand HRMs
 MAKE_HRL(hlr, &mo, &kp, KEYS_L THUMBS)  // right-hand HRMs
 
-/* custom behaviors */
+/* Sys layer navigation */
 
-// tap: sticky shift | double tap: capsword
-ZMK_BEHAVIOR(ss_cw, tap_dance,
-    tapping-term-ms = <200>;
+// long-tap action on hold, short-tap action on all interrupts
+#define MT_CORE \
+    flavor = "tap-preferred"; \
+    tapping-term-ms = <220>; \
+    quick-tap-ms = <220>; \
+    hold-trigger-key-positions = <0>;
+
+&mt { MT_CORE };
+ZMK_HOLD_TAP(mt_home, bindings = <&masked_home>, <&kp>; MT_CORE)
+ZMK_HOLD_TAP(mt_end, bindings = <&masked_end>, <&kp>; MT_CORE)
+
+#define SYS_LEFT  &mt_home 0   LEFT    // tap: left  | long-tap: beginning of line
+#define SYS_RIGHT &mt_end 0    RIGHT   // tap: right | long-tap: end       of line
+#define SYS_UP    &mt LC(HOME) UP      // tap: up    | long-tap: beginning of document
+#define SYS_DOWN  &mt LC(END)  DOWN    // tap: down  | long-tap: end       of document
+#define SYS_BSPC  &mt LC(BSPC) BSPC    // tap: bspc  | long-tap: delete word backward
+#define SYS_DEL   &mt LC(DEL)  DEL     // tap: del   | long-tap: delete word forward
+
+// mask CTRL when holding left/right to avoid accidental jumps to beginning/end of document
+#define MASK_MODS(NAME, MODS, BINDING) \
+    ZMK_MOD_MORPH(NAME, \
+        bindings = <BINDING>, <BINDING>; \
+        mods = <MODS>; \
+    )
+MASK_MODS(masked_home, (MOD_LCTL), &kp HOME)
+MASK_MODS(masked_end,  (MOD_LCTL), &kp END)
+
+#define PREV_TAB &kp LG(LS(LBKT))
+#define NEXT_TAB &kp LG(LS(RBKT))
+#define BCKWD &kp LG(LBKT)
+#define FWWD &kp LG(RBKT)
+#define SWAP_WIN &mt LG(GRAVE) TAB
+
+/* Caps-word */
+
+// tap: sticky-shift | shift + tap/ double-tap: caps-word | hold: shift
+ZMK_MOD_MORPH(smart_shft,
     bindings = <&sk LSHFT>, <&caps_word>;
+    mods = <(MOD_LSFT)>;
 )
+&caps_word {  // mods deactivate caps-word, requires PR #1451
+    /delete-property/ ignore-modifiers;
+};
+
 // CMD+Tab swapper, requires PR #1366
-ZMK_BEHAVIOR(swapper, tri_state,
+ZMK_TRI_STATE(swapper,
     bindings = <&kt LGUI>, <&kp TAB>, <&kt LGUI>;
     ignored-key-positions = <0 15>;
 )
 
- 
+// reuse basic mod-morph scheme
+#define SIMPLE_MORPH(NAME, MOD, BINDING1, BINDING2) \
+    ZMK_MOD_MORPH(NAME, \
+        mods = <(MOD_L ## MOD|MOD_R ## MOD)>; \
+        bindings = <BINDING1>, <BINDING2>; \
+    )
+
+// tap: comma | shift + tap: semicolon | ctrl + shift + tap: <
+SIMPLE_MORPH(comma_morph, SFT, &kp COMMA, &comma_inner_morph)
+SIMPLE_MORPH(comma_inner_morph, CTL, &kp SEMICOLON, &kp LESS_THAN)
+
+// tap: dot | shift + tap: colon | ctrl + shift + tap: >
+SIMPLE_MORPH(dot_morph, SFT, &kp DOT, &dot_inner_morph)
+SIMPLE_MORPH(dot_inner_morph, CTL, &kp COLON, &kp GREATER_THAN)
+
+// tap: minus | shift + tap: plus
+SIMPLE_MORPH(minus_morph, SFT, &kp MINUS, &kp PLUS)
+// tap: equal | shift + tap: under
+SIMPLE_MORPH(equal_morph, SFT, &kp EQUAL, &kp UNDER)
+
+// tap: backspace | lshft + tap: delete | rshft + tap: shift-delete
+ZMK_MOD_MORPH(bs_del,
+    bindings = <&kp BSPC>, <&kp DEL>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+    keep-mods = <MOD_RSFT>;
+)
+
+// tap: copy | double-tap: cut
+ZMK_TAP_DANCE(copy_cut_paste,
+    tapping-term-ms = <200>;
+    bindings = <&mt LG(V) LG(C)>, <&kp LG(X)>;
+)
+
 /* Layers */
 #define AL1 0
 #define AL2 1
@@ -86,105 +157,9 @@ ZMK_BEHAVIOR(swapper, tri_state,
 #define FUN 7
 #define AL2U 8
 
-/ { 
-    combos {
-      compatible = "zmk,combos";
-      combo_sys {
-          timeout-ms = <30>;
-          key-positions = <3 4 5>;
-          bindings = <&to SYS>;
-      };
-      combo_caps {
-          timeout-ms = <30>;
-          key-positions = <10 11 12>;
-          bindings = <&caps_word>;
-      };
-      combo_num {
-          timeout-ms = <30>;
-          key-positions = <0 1 2>;
-          bindings = <&to NUM>;
-      };
-      combo_bt  {
-          timeout-ms = <10>;
-          key-positions = <7 9>;
-          bindings = <&to BT>;
-          layers = <SM1>;
-      };
-      combo_fun  {
-          timeout-ms = <10>;
-          key-positions = <10 12>;
-          bindings = <&to FUN>;
-          layers = <AL1>;
-      };
-      bksp {
-        timeout-ms = <50>;
-        key-positions = <4 5>;
-        bindings = <&kp BKSP>;
-        layers = <AL1 AL2 AL2U>;
-      };
-      ret {
-        timeout-ms = <50>;
-        key-positions = <11 12>;
-        bindings = <&kp RET>;
-        layers = <AL1 AL2 AL2U>;
-      };
-      tab {
-        timeout-ms = <50>;
-        key-positions = <7 8>;
-        bindings = <&kp TAB>;
-        layers = <AL1 AL2 AL2U>;
-      };
-      esc {
-        timeout-ms = <50>;
-        key-positions = <0 1>;
-        bindings = <&kp ESC>;
-        layers = <AL1 AL2 AL2U>;
-      };
-      number_4 {
-        timeout-ms = <200>;
-        key-positions = <3 10>;
-        bindings = <&kp N4>;
-        layers = <NUM>;
-      };
-      number_5 {
-        timeout-ms = <200>;
-        key-positions = <4 11>;
-        bindings = <&kp N5>;
-        layers = <NUM>;
-      };
-      number_6 {
-        timeout-ms = <200>;
-        key-positions = <5 12>;
-        bindings = <&kp N6>;
-        layers = <NUM>;
-      };
-      dot {
-        timeout-ms = <50>;
-        key-positions = <10 11>;
-        bindings = <&kp DOT>;
-      };
-      comma {
-        timeout-ms = <50>;
-        key-positions = <3 4>;
-        bindings = <&kp COMMA>;
-      };
-      minus {
-        timeout-ms = <50>;
-        key-positions = <1 2>;
-        bindings = <&kp MINUS>;
-      };
-      equal {
-        timeout-ms = <50>;
-        key-positions = <8 9>;
-        bindings = <&kp EQUAL>;
-      };
-      sqt {
-        timeout-ms = <50>;
-        key-positions = <12 13>;
-        bindings = <&kp SQT>;
-      };
-    };
+#include "combos.dtsi" // requires layer aliases
 
+/ { 
     behaviors {
         sr: shift_layer {
             compatible = "zmk,behavior-hold-tap";
@@ -197,15 +172,6 @@ ZMK_BEHAVIOR(swapper, tri_state,
 
              quick_tap_ms = <175>;
             // retro-tap;
-        };
-    td: tapdance {
-            compatible = "zmk,behavior-hold-tap";
-            label = "TAPDANCE";
-            #binding-cells = <2>;
-            tapping-term-ms = <190>;
-            quick-tap-ms = <250>;
-            flavor = "tap-preferred";
-            bindings = <&kp>, <&kp>;
         };
    	alpha2macro: behavior_macro_1 {
 			compatible = "zmk,behavior-macro";
@@ -230,16 +196,16 @@ ZMK_BEHAVIOR(swapper, tri_state,
         alpha1 {
         label = "Base";
         bindings = <
-                          &hml LCTL G    &hml LGUI C    &hml LALT D              &hmr LALT L    &hmr RGUI U    &hmr RCTL H
+                         &hml LCTL G    &hml LGUI C    &hml LALT D              &hmr LALT L    &hmr RGUI U    &hmr RCTL H
             &hll NUM A   &hll SM2 R     &hll SM1 S     &hll SYS T               &hlr SYS N     &hlr SM1 E     &hlr SM2 I   &hlr NUM O
-                                        &kp SPC &ss_cw             &key_repeat &sl AL2  
+                                        &kp SPC &smart_shft             &key_repeat &sl AL2  
         >;
         };
         alpha2 {
         label = "Al2";
         bindings = <
                     &kp V   &kp W   &kp M                                  &kp F   &kp SQT          &kp Z 
-            &kp Q   &kp J   &kp K   &kp P                                  &kp B   &td COMMA DOT    &kp X   &kp Y
+            &kp Q   &kp J   &kp K   &kp P                                  &kp B   &mt COMMA DOT    &kp X   &kp Y
                                     &kp SPC &sr LSHIFT AL1                 &trans  &sl AL2U     
         >;
         };
@@ -255,9 +221,9 @@ ZMK_BEHAVIOR(swapper, tri_state,
         sym2 {
         label = "Punct";
         bindings = <
-                        &trans      &kp LT	    &kp GT                      &kp LPAR   &kp RPAR    &kp LBRC	
+                        &trans      &kp LT	    &kp GT                      &kp LPAR    &kp RPAR    &kp LBRC	
             &kp SEMI    &kp PRCNT   &kp TILDE   &kp UNDER                   &kp LBKT	  &kp RBKT    &kp RBRC    &trans
-                                    &td LG(V) LG(C)      &sr LSHIFT   AL1            &kp LALT &kp RGUI
+                                    &trans      &sr LSHIFT   AL1            &kp LALT &kp RGUI
 
         >;
         };
@@ -274,8 +240,8 @@ ZMK_BEHAVIOR(swapper, tri_state,
         sys {
         label = "Nav";
         bindings = <
-                                &swapper       &kp LG(LS(LBKT))    &kp LG(LS(RBKT))      &kp BKSP      &td PG_UP UP    &kp DEL
-            &td LG(GRAVE) TAB  &td LG(V) LG(C) &td HOME LG(LBKT)   &td END LG(RBKT)      &kp  LEFT            &td PG_DN DOWN  &td  LG(LS(N5)) RIGHT   &kp RET
+                      &swapper   PREV_TAB    NEXT_TAB                      SYS_BSPC   SYS_UP     SYS_DEL
+            SWAP_WIN  &copy_cut_paste BCKWD   FWWD                             SYS_LEFT SYS_DOWN  SYS_RIGHT   &kp RET
                                                &kp LCTL &sr LSHIFT AL1                   &kp LALT &kp RGUI           
         >;
         };
@@ -293,7 +259,7 @@ ZMK_BEHAVIOR(swapper, tri_state,
         bindings = <
                           &kp F11   &kp F10   &kp F1                         &kp F2   &kp F3   &kp F4
             &kp C_BRI_DN  &kp F12   &kp F5    &kp F6                         &kp F7   &kp F8   &kp F9  &kp C_BRI_UP
-                                    &kp C_VOL_DN  &to AL1                    &td C_MUTE C_PP &kp C_VOL_UP    
+                                    &kp C_VOL_DN  &to AL1                    &mt C_MUTE C_PP &kp C_VOL_UP    
                 >;
         };
 	      alpha2cap {
