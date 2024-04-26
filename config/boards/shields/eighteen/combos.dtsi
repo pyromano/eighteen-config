@@ -1,0 +1,13 @@
+/*                KEY POSITIONS
+
+  ╭─────────────╮      	        ╭─────────────╮
+  │    0  1  2  │               │ 3  4  5     │
+  │ 6  7  8  9  ╰────╮    ╭─────╯ 10 11 12 13 │
+  ╰─────────╮  14 15 │    │ 16 17  ╭──────────╯
+            ╰────────╯    ╰────────╯ */
+
+#define COMBO_TERM_FAST 18
+#define COMBO_TERM_SLOW 30
+
+#define COMBO_IDLE_FAST 150
+#define COMBO_IDLE_SLOW 50
