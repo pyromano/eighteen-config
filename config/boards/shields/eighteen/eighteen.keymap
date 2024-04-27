@@ -132,6 +132,8 @@ SIMPLE_MORPH(dot_inner_morph, CTL, &kp COLON, &kp GREATER_THAN)
 SIMPLE_MORPH(minus_morph, SFT, &kp MINUS, &kp PLUS)
 // tap: equal | shift + tap: under
 SIMPLE_MORPH(equal_morph, SFT, &kp EQUAL, &kp UNDER)
+// tap: slash | shift + tap: star
+SIMPLE_MORPH(slash_morph, SFT, &kp SLASH, &kp STAR)
 
 // tap: backspace | lshft + tap: delete | rshft + tap: shift-delete
 ZMK_MOD_MORPH(bs_del,
@@ -196,7 +198,7 @@ ZMK_TAP_DANCE(copy_cut_paste,
         alpha1 {
         label = "Base";
         bindings = <
-                         &hml LCTL G    &hml LGUI C    &hml LALT D              &hmr LALT L    &hmr RGUI U    &hmr RCTL H
+                         &hml LCTL L    &hml LALT G    &hml LGUI D              &hmr RGUI H    &hmr RALT U    &hmr RCTL C
             &hll NUM A   &hll SM2 R     &hll SM1 S     &hll SYS T               &hlr SYS N     &hlr SM1 E     &hlr SM2 I   &hlr NUM O
                                         &kp SPC &smart_shft             &key_repeat &sl AL2  
         >;
@@ -204,8 +206,8 @@ ZMK_TAP_DANCE(copy_cut_paste,
         alpha2 {
         label = "Al2";
         bindings = <
-                    &kp V   &kp W   &kp M                                  &kp F   &kp SQT          &kp Z 
-            &kp Q   &kp J   &kp K   &kp P                                  &kp B   &mt COMMA DOT    &kp X   &kp Y
+                    &kp V   &kp W   &kp P                                  &kp M   &kp J      &kp F 
+            &kp Q   &kp Z   &kp X   &kp B                                  &kp K   &kp SQT    &kp Y   &kp DOT
                                     &kp SPC &sr LSHIFT AL1                 &trans  &sl AL2U     
         >;
         };
@@ -213,8 +215,8 @@ ZMK_TAP_DANCE(copy_cut_paste,
         sym1 {
         label = "Code";
         bindings = <
-                      &kp EXCL    &kp ATSN    &kp HASH                      &kp AMPS     &kp STAR		&kp QMARK
-            &kp GRAVE	&kp DLLR	  &kp PRCNT   &kp CARET                     &kp UNDER    &kp BSLH	  &kp PIPE    &kp TILDE
+                      &kp AT    &kp HASH    &kp DLLR                      &kp PRCNT     &kp CARET		&kp AMPS
+            &trans	&trans	  &trans   &trans                             &trans    &trans	  &trans    &kp QMARK
                                   &trans      &sr LSHIFT AL1                &kp LALT &kp RGUI        
         >;
         };
@@ -231,17 +233,17 @@ ZMK_TAP_DANCE(copy_cut_paste,
         num {
         label = "Num";
         bindings = <
-                        &hml LCTL DOT    &hml LALT COMMA  &hml LGUI SEMI  &hmr RGUI N1   &hmr RALT N2   &hmr RCTL N3
-            &kp SLASH   &kp MINUS		      &kp PLUS          &kp COLON        &kp N7			&kp N8			&kp N9		&kp N0
-                                          &kp RCTL &sr LSHIFT AL1            &kp LALT  &kp RGUI        
+                        &hml LCTL DOT    &hml LALT N0  &hml LGUI N1         &hmr RGUI N2   &hmr RALT N3   &hmr RCTL N4
+            &slash_morph   &minus_morph		    &kp N5                        &kp N6       &kp N7			&kp N8			&kp N9		&kp EQUAL
+                                          &kp RCTL &sr LSHIFT AL1           &kp LALT  &kp RGUI        
         >;
         };
 
         sys {
         label = "Nav";
         bindings = <
-                      &swapper   PREV_TAB    NEXT_TAB                      SYS_BSPC   SYS_UP     SYS_DEL
-            SWAP_WIN  &copy_cut_paste BCKWD   FWWD                             SYS_LEFT SYS_DOWN  SYS_RIGHT   &kp RET
+                      &swapper   PREV_TAB    NEXT_TAB                        SYS_BSPC   SYS_UP     SYS_DEL
+            SWAP_WIN  &copy_cut_paste BCKWD   FWWD                           SYS_LEFT SYS_DOWN  SYS_RIGHT   &kp RET
                                                &kp LCTL &sr LSHIFT AL1                   &kp LALT &kp RGUI           
         >;
         };
@@ -264,8 +266,8 @@ ZMK_TAP_DANCE(copy_cut_paste,
         };
 	      alpha2cap {
 		    bindings = <
-			                  &kp LS(V)	  &kp LS(W)   &kp LS(M) 	 	                &kp LS(F)    	&kp LS(SQT)		&kp LS(Z)	
-			      &kp LS(Q) 	&kp LS(J) 	&kp LS(K)	  &kp LS(P)	      	            &kp LS(B)	    &kp COMMA	    &kp LS(X)	&kp LS(Y) 
+			                  &kp LS(V)	  &kp LS(W)   &kp LS(P) 	 	                &kp LS(M)    	&kp LS(J)		&kp LS(F)	
+			      &kp LS(Q) 	&kp LS(Z) 	&kp LS(X)	  &kp LS(B)	      	            &kp LS(K)	    &kp DQT	    &kp LS(Y)	&kp COMMA 
 			 		                          &trans 		&trans 			                    &trans	&trans
 		    >;
 	      };
