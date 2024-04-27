@@ -19,7 +19,7 @@ ZMK_COMBO(fun, &to FUN, 3 5, AL1, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
 ZMK_COMBO(bt, &to BT, 7 9, SM1, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
 
 // make homerow combos tap-only (so HRMs can be chorded instantaneously)
-#define HRC_ESC    &hml         LC(LALT) TAB
+#define HRC_ESC    &hml         LC(LALT) ESC
 #define HRC_BSPC    &hmr         RC(RALT) BSPC
 
 /* Horizontal combos - right hand */

@@ -129,11 +129,9 @@ SIMPLE_MORPH(dot_morph, SFT, &kp DOT, &dot_inner_morph)
 SIMPLE_MORPH(dot_inner_morph, CTL, &kp COLON, &kp GREATER_THAN)
 
 // tap: minus | shift + tap: plus
-SIMPLE_MORPH(minus_morph, SFT, &kp MINUS, &kp PLUS)
-// tap: equal | shift + tap: under
-SIMPLE_MORPH(equal_morph, SFT, &kp EQUAL, &kp UNDER)
+SIMPLE_MORPH(plus_morph, SFT, &kp PLUS, &kp MINUS)
 // tap: slash | shift + tap: star
-SIMPLE_MORPH(slash_morph, SFT, &kp SLASH, &kp STAR)
+SIMPLE_MORPH(star_morph, SFT, &kp STAR, &kp SLASH)
 
 // tap: backspace | lshft + tap: delete | rshft + tap: shift-delete
 ZMK_MOD_MORPH(bs_del,
@@ -234,7 +232,7 @@ ZMK_TAP_DANCE(copy_cut_paste,
         label = "Num";
         bindings = <
                         &hml LCTL DOT    &hml LALT N0  &hml LGUI N1         &hmr RGUI N2   &hmr RALT N3   &hmr RCTL N4
-            &slash_morph   &minus_morph		    &kp N5                        &kp N6       &kp N7			&kp N8			&kp N9		&kp EQUAL
+            &star_morph   &plus_morph		    &kp N5                        &kp N6       &kp N7			&kp N8			&kp N9		&kp EQUAL
                                           &kp RCTL &sr LSHIFT AL1           &kp LALT  &kp RGUI        
         >;
         };
