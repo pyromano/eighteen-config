@@ -9,6 +9,20 @@
 #include <dt-bindings/zmk/bt.h>
 #include "zmk-helpers/helper.h"
 
+/* Layers */
+#define AL1 0
+#define AL2 1
+#define SM 2
+#define NUM 3
+#define SYS 4
+#define BT 5
+#define FUN 6
+#define AL2U 7
+#define MOUSE 8
+
+#include "combos.dtsi" // requires layer aliases
+#include "mouse.dtsi"
+
 /* Settings */
 
 #define QUICK_TAP_MS 175
@@ -107,6 +121,13 @@ ZMK_MOD_MORPH(smart_shft,
     /delete-property/ ignore-modifiers;
 };
 
+// smart-mouse, requires PR #1366
+ZMK_TRI_STATE(smart_mouse,
+    bindings = <&tog MOUSE>, <&none>, <&tog MOUSE>;
+    ignored-key-positions = <0 2 3 4 5 10 11 12 13 16 17>;
+    ignored-layers = <MOUSE>;
+)
+
 // CMD+Tab swapper, requires PR #1366
 ZMK_TRI_STATE(swapper,
     bindings = <&kt LGUI>, <&kp TAB>, <&kt LGUI>;
@@ -144,18 +165,6 @@ SIMPLE_MORPH(vol_morph, SFT, &kp C_VOL_UP, &kp C_VOL_DN)
 SIMPLE_MORPH(bri_morph, SFT, &kp C_BRI_UP, &kp C_BRI_DN)
 // tap: next | shift + tap: prev
 SIMPLE_MORPH(prev_next_morph, SFT, &kp C_PREV, &kp C_NEXT)
-
-/* Layers */
-#define AL1 0
-#define AL2 1
-#define SM 2
-#define NUM 3
-#define SYS 4
-#define BT 5
-#define FUN 6
-#define AL2U 7
-
-#include "combos.dtsi" // requires layer aliases
 
 / { 
     behaviors {
@@ -196,7 +205,7 @@ SIMPLE_MORPH(prev_next_morph, SFT, &kp C_PREV, &kp C_NEXT)
         bindings = <
                          &hml LCTL L    &hml LALT G    &hml LGUI D              &hmr RGUI H    &hmr RALT U    &hmr RCTL C
             &hll NUM A   &hll SM R      &hll FUN S     &hll SYS T               &hlr SYS N     &hlr FUN E     &hlr SM I   &hlr NUM O
-                                        &kp SPC &smart_shft             &key_repeat &sl AL2  
+                                        &lt MOUSE SPC &smart_shft             &key_repeat &sl AL2  
         >;
         };
         alpha2 {
@@ -258,5 +267,12 @@ SIMPLE_MORPH(prev_next_morph, SFT, &kp C_PREV, &kp C_NEXT)
 			 		                          &trans 		&trans 			                    &trans	&trans
 		    >;
 	      };
+        ms {
+        bindings = <
+                      &trans    &trans     &trans                              U_WH_D      U_MS_U       U_WH_U
+            U_WH_L    &trans    &trans     &trans                              U_MS_L      U_MS_D       U_MS_R  U_WH_R
+                                     &trans &to AL1                            &mkp LCLK &mkp RCLK
+        >;
+        };
     };
 };
