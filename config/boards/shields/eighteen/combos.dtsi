@@ -15,8 +15,7 @@
 /* Layers combo */
 ZMK_COMBO(sys, &to SYS, 3 4 5, AL1 AL2 AL2U, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
 ZMK_COMBO(num, &to NUM, 0 1 2, AL1 AL2 AL2U, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(fun, &to FUN, 3 5, AL1, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(bt, &to BT, 7 9, SM1, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(bt, &to BT, 7 9, SYS, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
 
 // make homerow combos tap-only (so HRMs can be chorded instantaneously)
 #define HRC_ESC    &hml         LC(LALT) ESC

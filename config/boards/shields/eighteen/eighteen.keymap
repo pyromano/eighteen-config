@@ -133,29 +133,27 @@ SIMPLE_MORPH(plus_morph, SFT, &kp PLUS, &kp MINUS)
 // tap: slash | shift + tap: star
 SIMPLE_MORPH(star_morph, SFT, &kp STAR, &kp SLASH)
 
-// tap: backspace | lshft + tap: delete | rshft + tap: shift-delete
-ZMK_MOD_MORPH(bs_del,
-    bindings = <&kp BSPC>, <&kp DEL>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-    keep-mods = <MOD_RSFT>;
-)
-
-// tap: copy | double-tap: cut
+// tap: copy | double-tap: cut | hold: paste
 ZMK_TAP_DANCE(copy_cut_paste,
     tapping-term-ms = <200>;
     bindings = <&mt LG(V) LG(C)>, <&kp LG(X)>;
 )
+// tap: vol_up | shift + tap: vol_dn
+SIMPLE_MORPH(vol_morph, SFT, &kp C_VOL_UP, &kp C_VOL_DN)
+// tap: bri_up | shift + tap: bri_down
+SIMPLE_MORPH(bri_morph, SFT, &kp C_BRI_UP, &kp C_BRI_DN)
+// tap: next | shift + tap: prev
+SIMPLE_MORPH(prev_next_morph, SFT, &kp C_PREV, &kp C_NEXT)
 
 /* Layers */
 #define AL1 0
 #define AL2 1
-#define SM1 2
-#define SM2 3
-#define NUM 4
-#define SYS 5
-#define BT 6
-#define FUN 7
-#define AL2U 8
+#define SM 2
+#define NUM 3
+#define SYS 4
+#define BT 5
+#define FUN 6
+#define AL2U 7
 
 #include "combos.dtsi" // requires layer aliases
 
@@ -197,7 +195,7 @@ ZMK_TAP_DANCE(copy_cut_paste,
         label = "Base";
         bindings = <
                          &hml LCTL L    &hml LALT G    &hml LGUI D              &hmr RGUI H    &hmr RALT U    &hmr RCTL C
-            &hll NUM A   &hll SM2 R     &hll SM1 S     &hll SYS T               &hlr SYS N     &hlr SM1 E     &hlr SM2 I   &hlr NUM O
+            &hll NUM A   &hll SM R      &hll FUN S     &hll SYS T               &hlr SYS N     &hlr FUN E     &hlr SM I   &hlr NUM O
                                         &kp SPC &smart_shft             &key_repeat &sl AL2  
         >;
         };
@@ -210,21 +208,12 @@ ZMK_TAP_DANCE(copy_cut_paste,
         >;
         };
 
-        sym1 {
-        label = "Code";
-        bindings = <
-                      &kp AT    &kp HASH    &kp DLLR                      &kp PRCNT     &kp CARET		&kp AMPS
-            &trans	&trans	  &trans   &trans                             &trans    &trans	  &trans    &kp QMARK
-                                  &trans      &sr LSHIFT AL1                &kp LALT &kp RGUI        
-        >;
-        };
-        sym2 {
+        sym {
         label = "Punct";
         bindings = <
-                        &trans      &kp LT	    &kp GT                      &kp LPAR    &kp RPAR    &kp LBRC	
-            &kp SEMI    &kp PRCNT   &kp TILDE   &kp UNDER                   &kp LBKT	  &kp RBKT    &kp RBRC    &trans
-                                    &trans      &sr LSHIFT   AL1            &kp LALT &kp RGUI
-
+                      &kp AT    &kp HASH    &kp DLLR                      &kp LPAR    &kp RPAR    &kp LBRC
+            &kp EXCL	&kp PRCNT	  &kp CARET   &kp AMPS                    &kp LBKT	  &kp RBKT    &kp RBRC    &kp QMARK
+                                  &trans      &sr LSHIFT AL1              &kp LALT &kp RGUI        
         >;
         };
 
@@ -258,8 +247,8 @@ ZMK_TAP_DANCE(copy_cut_paste,
         label = "Fn";
         bindings = <
                           &kp F11   &kp F10   &kp F1                         &kp F2   &kp F3   &kp F4
-            &kp C_BRI_DN  &kp F12   &kp F5    &kp F6                         &kp F7   &kp F8   &kp F9  &kp C_BRI_UP
-                                    &kp C_VOL_DN  &to AL1                    &mt C_MUTE C_PP &kp C_VOL_UP    
+            &vol_morph  &kp F12   &mt LG(LS(N5)) F5    &kp F6                &kp F7   &kp F8   &kp F9  &bri_morph
+                                    &kp C_PP  &kp LSHIFT                    &kp C_MUTE &prev_next_morph    
                 >;
         };
 	      alpha2cap {
