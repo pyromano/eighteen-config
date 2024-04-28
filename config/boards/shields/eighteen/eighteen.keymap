@@ -170,6 +170,25 @@ SIMPLE_MORPH(bri_morph, SFT, &kp C_BRI_UP, &kp C_BRI_DN)
 // tap: next | shift + tap: prev
 SIMPLE_MORPH(prev_next_morph, SFT, &kp C_PREV, &kp C_NEXT)
 
+/* Vim macro */
+// toggle between two most recent buffers
+ZMK_BEHAVIOR(tog_buf, macro,
+    wait-ms = <100>;
+    tap-ms = <5>;
+    bindings = <&kp LC(N6)>;
+)
+ZMK_BEHAVIOR(ciw, macro,
+    bindings = <&kp C &kp I &kp W>;
+)
+//paste from 0 registry below
+ZMK_BEHAVIOR(rpb, macro,
+    bindings = <&kp DQT &kp N0 &kp P>;
+)
+//paste from 0 registry above
+ZMK_BEHAVIOR(rpa, macro,
+    bindings = <&kp DQT &kp N0 &kp LS(P)>;
+)
+
 / { 
     behaviors {
         sr: shift_layer {
@@ -217,7 +236,7 @@ ZMK_LAYER(al2,
 //              ╭─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────╮
                   &kp V         &kp W         &kp P           &kp M         &kp J         &kp F 
 //╭─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────╮
-    &kp Q         &kp Z         &kp X         &kp B           &kp K         &kp SQT       &kp Y         &kp DOT
+    &kp Q         &kp Z         &kp X         &kp B           &kp K         &tog_buf          &kp Y         &rpb
 //╰─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴─────────────╯
                                 &kp SPC       &sr LSHIFT AL1  ___           &sl AL2U     
 //                            ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯                                          
@@ -277,7 +296,7 @@ ZMK_LAYER(al2u,
 //              ╭─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────╮
                   &kp LS(V)	    &kp LS(W)     &kp LS(P)       &kp LS(M)    	&kp LS(J) 		&kp LS(F)	
 //╭─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────╮
-    &kp LS(Q) 	  &kp LS(Z) 	  &kp LS(X) 	  &kp LS(B)	      &kp LS(K)	    &kp DQT	       &kp LS(Y)	  &kp COMMA 
+    &kp LS(Q) 	  &kp LS(Z) 	  &kp LS(X) 	  &kp LS(B)	      &kp LS(K)	    &ciw	        &kp LS(Y)	    &rpa 
 //╰─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴─────────────╯
                                 ___ 	    	  ___ 			      ___      	    ___
 //                            ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯                                          
