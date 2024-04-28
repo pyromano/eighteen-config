@@ -128,7 +128,7 @@ ZMK_MOD_MORPH(smart_shft,
 // smart-mouse, requires PR #1366
 ZMK_TRI_STATE(smart_mouse,
     bindings = <&tog MOUSE>, <&none>, <&tog MOUSE>;
-    ignored-key-positions = <0 2 3 4 5 10 11 12 13 16 17>;
+    ignored-key-positions = <0 2 3 4 5 6 10 11 12 13 16 17>;
     ignored-layers = <MOUSE>;
 )
 
@@ -285,10 +285,10 @@ ZMK_LAYER(al2u,
 
 ZMK_LAYER(mouse,
 //              ╭─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────╮
-                  ___           ___           ___             U_WH_D        U_MS_U        U_WH_U
+                  ___           ___           ___             U_WH_U        U_MS_U        U_WH_D
 //╭─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────╮
-    U_WH_L        ___           ___           ___             U_MS_L        U_MS_D        U_MS_R        U_WH_R
+    U_WH_R        ___           ___           ___             U_MS_L        U_MS_D        U_MS_R        U_WH_L
 //╰─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴─────────────╯
-                                ___           &to AL1         &mkp LCLK     &mkp RCLK
+                                ___           ___             &mkp LCLK     &mkp RCLK
 //                            ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯                                          
 )
