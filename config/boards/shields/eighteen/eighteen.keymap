@@ -111,7 +111,7 @@ MASK_MODS(masked_end,  (MOD_LCTL), &kp END)
 #define NEXT_TAB &kp LG(LS(RBKT))
 #define BCKWD &kp LG(LBKT)
 #define FWWD &kp LG(RBKT)
-#define SWAP_WIN &mt LG(GRAVE) TAB
+#define TOG_WIN &mt LG(GRAVE) TAB
 #define PRTSC LG(LS(N5))
 
 /* Caps-word */
@@ -266,7 +266,7 @@ ZMK_LAYER(sys,
 //              ╭─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────╮
                   &swapper      PREV_TAB      NEXT_TAB        SYS_BSPC      SYS_UP        SYS_DEL
 //╭─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────╮
-    SWAP_WIN      &ccp          BCKWD         FWWD            SYS_LEFT      SYS_DOWN      SYS_RIGHT     &kp RET
+    TOG_WIN      &ccp          BCKWD         FWWD            SYS_LEFT      SYS_DOWN      SYS_RIGHT     &kp RET
 //╰─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴─────────────╯
                                 &kp LCTL      &sr LSHIFT AL1  &kp LALT      &kp RGUI           
 //                            ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯                                          
@@ -276,9 +276,9 @@ ZMK_LAYER(bt,
 //              ╭─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────╮
                   &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2    &bt BT_SEL 3  &bt BT_SEL 4  ___
 //╭─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────╮
-    &bt BT_CLR    ___           ___           &bootloader     &bootloader   ___           ___           &bt BT_CLR
+    &bt BT_CLR    &sys_reset    ___           &bootloader     &bootloader   ___           &sys_reset    &bt BT_CLR
 //╰─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴─────────────╯
-                                ___           &to AL1         &sys_reset    ___
+                                ___           &to AL1         ___    ___
 //                            ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯                                          
 )
 
