@@ -107,12 +107,11 @@ ZMK_HOLD_TAP(mt_end, bindings = <&masked_end>, <&kp>; MT_CORE)
 MASK_MODS(masked_home, (MOD_LCTL), &kp HOME)
 MASK_MODS(masked_end,  (MOD_LCTL), &kp END)
 
-#define PREV_TAB &kp LG(LS(LBKT))
-#define NEXT_TAB &kp LG(LS(RBKT))
-#define BCKWD &kp LG(LBKT)
-#define FWWD &kp LG(RBKT)
 #define TOG_WIN &mt LG(GRAVE) TAB
 #define PRTSC LG(LS(N5))
+
+#define PREV_TAB  &mt LG(LBKT) LG(LS(LBKT))    // tap: prev_tab  | long-tap: backward
+#define NEXT_TAB   &mt LG(RBKT)  LG(LS(RBKT))     // tap: next_tab   | long-tap: forward
 
 /* Caps-word */
 
@@ -264,9 +263,9 @@ ZMK_LAYER(num,
 
 ZMK_LAYER(sys,
 //              ╭─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────╮
-                  &swapper      PREV_TAB      NEXT_TAB        SYS_BSPC      SYS_UP        SYS_DEL
+                  &kp ESC       &ccp          &kp LG(V)       SYS_BSPC      SYS_UP        SYS_DEL
 //╭─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────╮
-    TOG_WIN      &ccp          BCKWD         FWWD            SYS_LEFT      SYS_DOWN      SYS_RIGHT     &kp RET
+    TOG_WIN       &swapper      PREV_TAB      NEXT_TAB        SYS_LEFT      SYS_DOWN      SYS_RIGHT     &kp RET
 //╰─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴─────────────╯
                                 &kp LCTL      &sr LSHIFT AL1  &kp LALT      &kp RGUI           
 //                            ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯                                          
