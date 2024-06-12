@@ -263,9 +263,9 @@ ZMK_LAYER(num,
 
 ZMK_LAYER(sys,
 //              ╭─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────╮
-                  &kp ESC       &ccp          &kp LG(V)       SYS_BSPC      SYS_UP        SYS_DEL
+                  &swapper       &ccp          &kp LG(V)       SYS_BSPC      SYS_UP        SYS_DEL
 //╭─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────╮
-    TOG_WIN       &swapper      PREV_TAB      NEXT_TAB        SYS_LEFT      SYS_DOWN      SYS_RIGHT     &kp RET
+    TOG_WIN       &kp ESC       PREV_TAB      NEXT_TAB        SYS_LEFT      SYS_DOWN      SYS_RIGHT     &kp RET
 //╰─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴─────────────╯
                                 &kp LCTL      &sr LSHIFT AL1  &kp LALT      &kp RGUI           
 //                            ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯                                          
