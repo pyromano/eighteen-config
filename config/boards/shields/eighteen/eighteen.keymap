@@ -223,7 +223,7 @@ ZMK_BEHAVIOR(rpa, macro,
 
 ZMK_LAYER(base,
 //              ╭─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────╮
-                  &hml LCTL L   &hml LALT G   &hml LGUI D     &hmr RGUI H   &hmr RALT U   &hmr RCTL C
+                  &hml LGUI L   &hml LALT G   &hml LCTL D     &hmr RCTL H   &hmr RALT U   &hmr RGUI C
 //╭─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────╮
     &hll NUM A    &hll SM R     &hll FUN S    &hll SYS T      &hlr SYS N    &hlr FUN E    &hlr SM I     &hlr NUM O
 //╰─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴─────────────╯

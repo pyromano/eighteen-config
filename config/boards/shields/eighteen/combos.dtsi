@@ -19,8 +19,8 @@ ZMK_COMBO(mouse, &smart_mouse, 0 2, AL1 AL2 AL2U, COMBO_TERM_SLOW, COMBO_IDLE_SL
 ZMK_COMBO(bt, &to BT, 3 5, AL1 AL2 AL2U, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
 
 // make homerow combos tap-only (so HRMs can be chorded instantaneously)
-#define HRC_ESC    &hml         LC(LALT) ESC
-#define HRC_BSPC    &hmr         RC(RALT) BSPC
+#define HRC_ESC    &hml         LG(LALT) ESC
+#define HRC_BSPC    &hmr         RG(RALT) BSPC
 
 /* Horizontal combos - right hand */
 ZMK_COMBO(bspc, HRC_BSPC, 4 5, AL1 AL2 AL2U, COMBO_TERM_FAST, COMBO_IDLE_FAST)
@@ -31,7 +31,7 @@ ZMK_COMBO(dot, &dot_morph, 10 11, AL1 AL2 AL2U, COMBO_TERM_FAST, COMBO_IDLE_FAST
 ZMK_COMBO(sqt, &kp SQT, 10 12, AL1 AL2 AL2U, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 
 /* Horizontal combos - left hand */
-ZMK_COMBO(esc, HRC_ESC, 7 9, AL1 AL2 AL2U, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(esc, HRC_ESC, 0 1, AL1 AL2 AL2U, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 ZMK_COMBO(tab, &kp TAB, 7 8, AL1 AL2 AL2U, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 
 ZMK_COMBO(minus, &kp MINUS, 1 2, AL1 AL2 AL2U, COMBO_TERM_FAST, COMBO_IDLE_FAST)
