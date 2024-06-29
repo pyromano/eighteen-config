@@ -243,9 +243,9 @@ ZMK_LAYER(al2,
 
 ZMK_LAYER(sym,
 //              ╭─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────╮
-                  &kp AT        &kp HASH      &kp DLLR        &kp LPAR      &kp RPAR      &kp LBRC
+                  &kp AT        &kp HASH      &kp AMPS        &kp LPAR      &kp RPAR      &kp LBRC
 //╭─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────╮
-    &kp EXCL	  &kp PRCNT	    &kp CARET     &kp AMPS        &kp LBKT      &kp RBKT      &kp RBRC      &kp QMARK
+    &kp EXCL	  &kp CARET	    &kp PRCNT     &kp DLLR        &kp LBKT      &kp RBKT      &kp RBRC      &kp QMARK
 //╰─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴─────────────╯
                                 ___           &sr LSHIFT AL1  &kp LALT      &kp RGUI        
 //                            ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯                                          
