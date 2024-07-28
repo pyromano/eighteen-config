@@ -91,6 +91,7 @@ MAKE_HRL(hlr, &mo, &kp, KEYS_L THUMBS)  // right-hand HRMs
 ZMK_HOLD_TAP(mt_home, bindings = <&masked_home>, <&kp>; MT_CORE)
 ZMK_HOLD_TAP(mt_end, bindings = <&masked_end>, <&kp>; MT_CORE)
 
+#define HYPR LC(RS(LA(LGUI)))
 #define SYS_LEFT  &mt_home 0   LEFT    // tap: left  | long-tap: beginning of line
 #define SYS_RIGHT &mt_end 0    RIGHT   // tap: right | long-tap: end       of line
 #define SYS_UP    &mt LC(HOME) UP      // tap: up    | long-tap: beginning of document
@@ -227,7 +228,7 @@ ZMK_LAYER(base,
 //╭─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────╮
     &hll NUM A    &hll SM R     &hll FUN S    &hll SYS T      &hlr SYS N    &hlr FUN E    &hlr SM I     &hlr NUM O
 //╰─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴─────────────╯
-                                &lt MOUSE SPC &smart_shft     &key_repeat   &sl AL2  
+                                &mt HYPR SPC &smart_shft     &key_repeat   &sl AL2  
 //                            ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯                                          
 )
 
