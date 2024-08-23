@@ -98,6 +98,8 @@ ZMK_HOLD_TAP(mt_end, bindings = <&masked_end>, <&kp>; MT_CORE)
 #define SYS_DOWN  &mt LC(END)  DOWN    // tap: down  | long-tap: end       of document
 #define SYS_BSPC  &mt LC(BSPC) BSPC    // tap: bspc  | long-tap: delete word backward
 #define SYS_DEL   &mt LC(DEL)  DEL     // tap: del   | long-tap: delete word forward
+#define SYS_UNDO &kp LG(Z)
+#define SYS_REDO &kp LG(LS(Z))
 
 // mask CTRL when holding left/right to avoid accidental jumps to beginning/end of document
 #define MASK_MODS(NAME, MODS, BINDING) \
@@ -108,7 +110,6 @@ ZMK_HOLD_TAP(mt_end, bindings = <&masked_end>, <&kp>; MT_CORE)
 MASK_MODS(masked_home, (MOD_LCTL), &kp HOME)
 MASK_MODS(masked_end,  (MOD_LCTL), &kp END)
 
-#define TOG_WIN &mt LG(GRAVE) TAB
 #define PRTSC LG(LS(N5))
 
 #define PREV_TAB  &mt LG(LBKT) LG(LS(LBKT))    // tap: prev_tab  | long-tap: backward
@@ -153,11 +154,6 @@ SIMPLE_MORPH(comma_inner_morph, CTL, &kp SEMICOLON, &kp LESS_THAN)
 SIMPLE_MORPH(dot_morph, SFT, &kp DOT, &dot_inner_morph)
 SIMPLE_MORPH(dot_inner_morph, CTL, &kp COLON, &kp GREATER_THAN)
 
-// tap: minus | shift + tap: plus
-SIMPLE_MORPH(plus_morph, SFT, &kp PLUS, &kp MINUS)
-// tap: slash | shift + tap: star
-SIMPLE_MORPH(star_morph, SFT, &kp STAR, &kp SLASH)
-
 // tap: copy | double-tap: cut | hold: paste
 ZMK_TAP_DANCE(ccp,
     tapping-term-ms = <200>;
@@ -170,6 +166,14 @@ SIMPLE_MORPH(bri_morph, SFT, &kp C_BRI_UP, &kp C_BRI_DN)
 // tap: next | shift + tap: prev
 SIMPLE_MORPH(prev_next_morph, SFT, &kp C_PREV, &kp C_NEXT)
 
+// tap: bspc | shift + tap del
+SIMPLE_MORPH(bspc_morph, SFT, SYS_BSPC, SYS_DEL)
+
+// tap: 1/2/3 | shift + tap 7/8/9
+SIMPLE_MORPH(n1_morph, SFT, &kp N1, &kp N7)
+SIMPLE_MORPH(n2_morph, SFT, &kp N2, &kp N8)
+SIMPLE_MORPH(n3_morph, SFT, &kp N3, &kp N9)
+
 /* Vim macro */
 // toggle between two most recent buffers
 ZMK_BEHAVIOR(tog_buf, macro,
@@ -177,9 +181,7 @@ ZMK_BEHAVIOR(tog_buf, macro,
     tap-ms = <5>;
     bindings = <&kp LC(N6)>;
 )
-ZMK_BEHAVIOR(ciw, macro,
-    bindings = <&kp C &kp I &kp W>;
-)
+
 //paste from 0 registry below
 ZMK_BEHAVIOR(rpb, macro,
     bindings = <&kp DQT &kp N0 &kp P>;
@@ -228,7 +230,7 @@ ZMK_LAYER(base,
 //╭─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────╮
     &hll NUM A    &hll SM R     &hll FUN S    &hll SYS T      &hlr SYS N    &hlr FUN E    &hlr SM I     &hlr NUM O
 //╰─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴─────────────╯
-                                &mt HYPR SPC &smart_shft     &key_repeat   &sl AL2  
+                                &mt HYPR SPC &smart_shft      &bspc_morph   &sl AL2  
 //                            ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯                                          
 )
 
@@ -236,7 +238,7 @@ ZMK_LAYER(al2,
 //              ╭─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────╮
                   &kp V         &kp W         &kp P           &kp M         &kp J         &kp F 
 //╭─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────╮
-    &kp Q         &kp Z         &kp X         &kp B           &kp K         &tog_buf      &kp Y         &rpb
+    &kp Q         &kp Z         &kp X         &kp B           &kp K         &rpb          &kp Y         &tog_buf
 //╰─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴─────────────╯
                                 &kp SPC       &sr LSHIFT AL1  ___           &sl AL2U     
 //                            ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯                                          
@@ -248,27 +250,27 @@ ZMK_LAYER(sym,
 //╭─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────╮
     &kp EXCL	  &kp CARET	    &kp PRCNT     &kp DLLR        &kp LBKT      &kp RBKT      &kp RBRC      &kp QMARK
 //╰─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴─────────────╯
-                                &kp RGUI      &sr LSHIFT AL1  &kp LALT      &kp LCTL        
+                                &kp LCTL      &sr LSHIFT AL1  &kp LALT      &kp RGUI        
 //                            ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯                                          
 )
 
 ZMK_LAYER(num,
 //              ╭─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────╮
-                  &hml LCTL DOT &hml LALT N0  &hml LGUI N1    &hmr RGUI N2  &hmr RALT N3  &hmr RCTL N4
+                  &hml LCTL UNDER &hml LALT MINUS  &hml LGUI PLUS    &hmr RGUI N4  &hmr RALT N5  &hmr RCTL N6
 //╭─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────╮
-    &star_morph   &plus_morph   &kp N5        &kp N6          &kp N7  		&kp N8  	  &kp N9		&kp EQUAL
+    &kp EQUAL     &kp BSLH     &kp FSLH       &kp STAR        &n1_morph		&n2_morph  	  &n3_morph		&kp N0
 //╰─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴─────────────╯
-                                &kp RGUI      &sr LSHIFT AL1  &kp LALT      &kp LCTL        
+                                &kp LCTL      &sr LSHIFT AL1  &kp LALT      &kp RGUI        
 //                            ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯                                          
 )
 
 ZMK_LAYER(sys,
 //              ╭─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────╮
-                  &swapper       &ccp          &kp LG(V)       SYS_BSPC      SYS_UP        SYS_DEL
+                  &kp ESC       SYS_UNDO      SYS_REDO        PREV_TAB      SYS_UP        NEXT_TAB
 //╭─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────╮
-    TOG_WIN       &kp ESC       PREV_TAB      NEXT_TAB        SYS_LEFT      SYS_DOWN      SYS_RIGHT     &kp RET
+    &kp TAB       &ccp          &swapper      &kp LG(GRAVE)   SYS_LEFT      SYS_DOWN      SYS_RIGHT     &kp RET
 //╰─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴─────────────╯
-                                &kp RGUI      &sr LSHIFT AL1  &kp LALT      &kp LCTL           
+                                &kp LCTL      &sr LSHIFT AL1  &kp LALT      &kp RGUI           
 //                            ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯                                          
 )
 
@@ -296,9 +298,9 @@ ZMK_LAYER(al2u,
 //              ╭─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────╮
                   &kp LS(V)	    &kp LS(W)     &kp LS(P)       &kp LS(M)    	&kp LS(J) 	  &kp LS(F)	
 //╭─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────╮
-    &kp LS(Q) 	  &kp LS(Z)     &kp LS(X) 	  &kp LS(B)	      &kp LS(K)	    &ciw	      &kp LS(Y)	    &rpa 
+    &kp LS(Q) 	  &kp LS(Z)     &kp LS(X) 	  &kp LS(B)	      &kp LS(K)	     &rpa	      &kp LS(Y)	    ___
 //╰─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴─────────────╯
-                                ___ 	    	  ___ 			      ___      	    ___
+                                ___ 	      ___ 		      ___      	    ___
 //                            ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯                                          
 )
 
